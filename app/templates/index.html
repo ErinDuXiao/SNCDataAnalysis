@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include 'partials/head.html' %}
+
+    </head>
+    
+    <body>
+        <h2>Super Neon Colosseum Data Analysis</h2>
+		<div>{{msg}}</div>
+        <section id="main-area">
+	        <div id="working-area">
+
+	           {{ current_panel|safe }}
+
+	        </div>
+	        <div>   
+	        	<form>
+   		       		<input type="button" id="GetSessionInfo" value="Get SessionInfo"></input>
+    			</form>
+	        	<form>
+	        		<select class="sessionKeyComboBox">
+	        		</select>
+   		       		<input type="button" id="GetPlayerPosInfo" value="Get PlayerPosInfo"></input>
+    			</form>
+       		</div>
+        </section>
+
+        <script src="scripts/app.js"></script>
+    </body>
+</html>
