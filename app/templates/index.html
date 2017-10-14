@@ -1,31 +1,53 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        {% include 'partials/head.html' %}
-
-    </head>
+    {% include 'partials/head.html' %}
     
     <body>
-        <h2>Super Neon Colosseum Data Analysis</h2>
-		<div>{{msg}}</div>
-        <section id="main-area">
-	        <div id="working-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1>SNC: Heatmaps</h1>
+          </div>
+        </div>
 
-	           {{ current_panel|safe }}
+        <div class="heatmap-options font-heavy">
+          <div class="row">
+            <div class="col-6">
+              <div class="row session-key-row">
+                <div class="col-6">
 
-	        </div>
-	        <div>   
-	        	<form>
-   		       		<input type="button" id="GetSessionInfo" value="Get SessionInfo"></input>
-    			</form>
-	        	<form>
-	        		<select class="sessionKeyComboBox">
-	        		</select>
-   		       		<input type="button" id="GetPlayerPosInfo" value="Get PlayerPosInfo"></input>
-    			</form>
-       		</div>
-        </section>
+                  <!--FIXME change class="sessionKeyComboBox" to use id instead -->
+                  <select title="Select Session" class="sessionKeyComboBox" id="">
+                    <option value="" disabled selected hidden>
+                      Choose Session Key
+                    </option>
+                  </select>
+                </div>
 
-        <script src="scripts/app.js"></script>
+                <div class="col-6">
+
+                  <!--FIXME change the id's name-->
+                  <input type="button" id="GetSessionInfo" value="Select Session">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="row session-key-row">
+                <div class="col-6">Player Selecion Combo Box</div>
+                <div class="col-6">Player Selection Confirm</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row heatmap-map">
+          <div class="col-12">
+
+          </div>
+        </div>
+      </div>
+
+      {% include 'partials/footer.html' %}
     </body>
 </html>
