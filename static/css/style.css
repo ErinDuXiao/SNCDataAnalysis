@@ -6,8 +6,8 @@
 
 .heatmap-map {
     background-color: #333447;
-    min-height: 600px;
-    min-width: 960px;
+    height: 600px;
+    width: 960px;
 }
 
 .heatmap-options {
