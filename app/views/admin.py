@@ -11,9 +11,6 @@ from app.models.tdata import PlayerLocation
 from app.models.tdata import PlayerDeath
 from app.models.tdata import PrimaryFire
 from app.models.tdata import SecondaryFire
-# from django.shortcuts import render
-from app.models.upload_file_form import UploadFileForm
-
 # this is the parent class of all pages that need to respond to AJAX messages
 from app.views.page_controller import PageController
 from google.appengine.ext.ndb import Key
