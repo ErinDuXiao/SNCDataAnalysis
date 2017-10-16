@@ -48,4 +48,11 @@ class SecondaryFire( ndb.Model ):
     posX = ndb.FloatProperty()
     posY = ndb.FloatProperty()
     posZ = ndb.FloatProperty()     
-            
+
+class PlayerBoost( ndb.Model ):            
+    sessionKey = ndb.StringProperty(indexed = True)
+    timestamp = ndb.StringProperty()        
+    playerNumber = ndb.IntegerProperty()        
+    posX = ndb.FloatProperty()
+    posY = ndb.FloatProperty()
+    posZ = ndb.FloatProperty()  

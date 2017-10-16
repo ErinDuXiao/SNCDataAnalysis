@@ -11,6 +11,7 @@ from app.models.tdata import PlayerLocation
 from app.models.tdata import PlayerDeath
 from app.models.tdata import PrimaryFire
 from app.models.tdata import SecondaryFire
+from app.models.tdata import PlayerBoost
 # this is the parent class of all pages that need to respond to AJAX messages
 from app.views.page_controller import PageController
 from google.appengine.ext.ndb import Key
@@ -97,6 +98,18 @@ class AdminPage( PageController ):
                     playerLocationData.posY = float(p['y'])
                     playerLocationData.posZ = float(p['z'])
                     playerLocationData.put()
+                    
+            if data['playerBoostInfoArray']:
+                # Store player boost info
+                for p in data['playerBoostInfoArray']:
+                    PlayerBoost = PlayerBoost()
+                    PlayerBoost.sessionKey = str(data['sessionKey'])
+                    PlayerBoost.timestamp = str(p['timestamp'])
+                    PlayerBoost.playerNumber = int(p['playerNumber'])
+                    PlayerBoost.posX = float(p['x'])
+                    PlayerBoost.posY = float(p['y'])
+                    PlayerBoost.posZ = float(p['z'])
+                    PlayerBoost.put()
 
             # try blocks should be limited just to calls that may fail
             sessionDataKey = sessionData.put()

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     {% include 'partials/head.html' %}
-    
+
     <body>
       <div class="container">
         <div class="row">
@@ -14,44 +14,34 @@
           <div class="row">
             <div class="col-4">
               <div class="row session-key-row">
-                <div class="col-6">
-
-                  <!--FIXME change class="sessionKeyComboBox" to use id instead -->
-                  <select title="Select Session" class="sessionKeyComboBox" id="">
-                    <option value="" disabled selected hidden>
-                      Choose Session Key
-                    </option>
-                  </select>
-                </div>
-
-                <div class="col-6">
-
-                  <!--FIXME change the id's name-->
-                  <input type="button" id="GetSessionInfo" value="Select Session">
-                </div>
+                <select class="col-12" title="Select Session" id="sessionKeyComboBox">
+                  <option value="" disabled selected hidden>
+                    Choose Session Key...
+                  </option>
+                </select>
               </div>
             </div>
 
             <div class="col-4">
               <div class="row session-key-row">
-                <div class="col-6">Data Display Combo Box</div>
-                <div class="col-6">Data Display Confirm</div>
-              </div>
-            </div>
-
-            <div class="col-4">
-              <div class="row session-key-row">
-                <div class="col-6">Player Selecion Combo Box</div>
-                <div class="col-6">Player Selection Confirm</div>
+                <select class="col-12" title="Select Event" id="eventInfoComboBox">
+                  <option value="" disabled selected hidden>
+                    Choose event...
+                  </option>
+                  <option value="primary">Primary Fire</option>
+                  <option value="secondary">Secondary Fire</option>
+                  <option value="boost">Boost</option>
+                  <option value="death">Death</option>
+                  <option value="pos">Player Location</option>
+                </select>
               </div>
             </div>
           </div>
         </div>
 
         <div class="row heatmap-map">
-          <div class="col-12">
-
-          </div>
+          <div id="gamemap"></div>
+          <div id="gamemap-visual-filter"></div>
         </div>
       </div>
 
