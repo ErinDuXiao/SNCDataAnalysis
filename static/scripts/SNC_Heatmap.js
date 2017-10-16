@@ -8,7 +8,6 @@
  * @summary: Framework Singleton Class
  *
  */
-'use strict';
 
 class HeatmapHelper {
 

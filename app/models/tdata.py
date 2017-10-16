@@ -40,7 +40,6 @@ class PrimaryFire( ndb.Model ):
     posY = ndb.FloatProperty()
     posZ = ndb.FloatProperty()       
             
-            
 class SecondaryFire( ndb.Model ):            
     sessionKey = ndb.StringProperty(indexed = True)        
     timestamp = ndb.StringProperty()        
