@@ -69,6 +69,7 @@ class App {
 
         $("#eventInfoComboBox").on('change',(event) => {
             let selectedVal = $("#eventInfoComboBox option:selected").val();
+            this.heatmap.clear();
             switch(selectedVal) {
                 case "primary":
                     this.loadPrimaryFireInfo();

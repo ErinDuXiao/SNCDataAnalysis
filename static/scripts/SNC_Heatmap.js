@@ -23,6 +23,10 @@ class HeatmapHelper {
     setupHandler() {
     }
 
+    clear() {
+      this.sncHeatmap.setData({data:[]});
+    }
+
     drawData(data, offsetX, offsetY, scale) {
         this.points = [];
         this.max = 0;

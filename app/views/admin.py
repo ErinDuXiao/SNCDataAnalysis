@@ -102,14 +102,14 @@ class AdminPage( PageController ):
             if data['playerBoostInfoArray']:
                 # Store player boost info
                 for p in data['playerBoostInfoArray']:
-                    PlayerBoost = PlayerBoost()
-                    PlayerBoost.sessionKey = str(data['sessionKey'])
-                    PlayerBoost.timestamp = str(p['timestamp'])
-                    PlayerBoost.playerNumber = int(p['playerNumber'])
-                    PlayerBoost.posX = float(p['x'])
-                    PlayerBoost.posY = float(p['y'])
-                    PlayerBoost.posZ = float(p['z'])
-                    PlayerBoost.put()
+                    playerBoost = PlayerBoost()
+                    playerBoost.sessionKey = str(data['sessionKey'])
+                    playerBoost.timestamp = str(p['timestamp'])
+                    playerBoost.playerNumber = int(p['playerNumber'])
+                    playerBoost.posX = float(p['x'])
+                    playerBoost.posY = float(p['y'])
+                    playerBoost.posZ = float(p['z'])
+                    playerBoost.put()
 
             # try blocks should be limited just to calls that may fail
             sessionDataKey = sessionData.put()
