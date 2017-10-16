@@ -11,6 +11,24 @@ class AdminApp {
 
     setupHandlers() {
 
+    	$("#save-playdata-send-button").on('click', (event) => {
+    		event.preventDefault();
+    		
+    		let payload = $("#gameplaydata").val();
+    		
+            let request = {
+        				cmd: 'save_playdata',
+        				data: JSON.stringify(payload)
+        		}
+            
+            // post to the server
+            $.post('/admin', $.param(request))
+                .then ((data) => {
+                    console.log(data);
+            })
+            
+    	});
+    	
         $("#PutSessionInfo").on('click', (event) => {
             event.preventDefault();
             let payload = {

@@ -10,12 +10,7 @@ from app.views.page_controller import PageController
 from app.views.sub import SubPage
 
 from app.models.tdata import Sessions
-from app.models.tdata import SessionPlayerSelectionInfo
 from app.models.tdata import PlayerLocation
-from app.models.tdata import PlayerDeath
-from app.models.tdata import AttackPrimary
-from app.models.tdata import AttackSecondly
-from app.models.tdata import AttackMelee
 
 """
 Home Page handler
