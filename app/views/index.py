@@ -16,6 +16,8 @@ from app.models.tdata import PlayerDeath
 from app.models.tdata import PrimaryFire
 from app.models.tdata import SecondaryFire
 from app.models.tdata import PlayerBoost
+from google.appengine.ext import db
+
 """
 Home Page handler
 
@@ -74,16 +76,45 @@ class IndexPage( PageController ):
         self.send_json( result )
         return
     
+    def do_load_all_player_selection(self, params):
+
+        # initialize the result, set the value to indicate an error
+        result = { 'returnCode': -1 }
+
+        try:
+            # Retrieve all Sessions entitites
+            selectionInfoList = SessionPlayerSelectionInfo.query()
+            
+        except ValueError:
+            logging.error( 'Attempt to do load all session failed' )
+            self.send_json( result )
+
+        dataArray = []
+        for selectionInfo in selectionInfoList:
+            record = {}
+            record['sessionKey'] = selectionInfo.sessionKey
+            record['playerNumber'] = selectionInfo.playerNumber
+            record['hovercraftNumber'] = selectionInfo.hovercraftNumber
+            dataArray.append(record)
+            
+        result['data'] = dataArray
+
+        result['returnCode'] = 0
+
+        self.send_json( result )
+        return
+    
     def do_load_primary_fire_info(self, params):
 
         # initialize the result, set the value to indicate an error
         result = { 'returnCode': -1 }
 
-        # read sessionKey
+        
         primaryFire = PrimaryFire()
-        primaryFire.sessionKey = str(params['sessionKey'])
 
         try:
+            
+            # read database
             primaryFireDataResultList = primaryFire.query()
             
         except ValueError:
@@ -116,7 +147,7 @@ class IndexPage( PageController ):
 
         # read sessionKey
         eventInfo = SecondaryFire()
-        eventInfo.sessionKey = str(params['sessionKey'])
+#         eventInfo.sessionKey = str(params['sessionKey'])
 
         try:
             resultList = eventInfo.query()
@@ -151,7 +182,7 @@ class IndexPage( PageController ):
 
         # read sessionKey
         eventInfo = PlayerDeath()
-        eventInfo.sessionKey = str(params['sessionKey'])
+#         eventInfo.sessionKey = str(params['sessionKey'])
 
         try:
             resultList = eventInfo.query()
@@ -186,7 +217,7 @@ class IndexPage( PageController ):
 
         # read sessionKey
         eventInfo = PlayerBoost()
-        eventInfo.sessionKey = str(params['sessionKey'])
+#         eventInfo.sessionKey = str(params['sessionKey'])
 
         try:
             resultList = eventInfo.query()
@@ -221,7 +252,7 @@ class IndexPage( PageController ):
 
         # read sessionKey
         playerLocation = PlayerLocation()
-        playerLocation.sessionKey = str(params['sessionKey'])
+#         playerLocation.sessionKey = str(params['sessionKey'])
 
         try:
             playerLocationDataResultList = playerLocation.query()

@@ -50,7 +50,15 @@ class AdminPage( PageController ):
         sessionData.timestamp = str(data['timestamp'])
 
         try:
-
+            if data['playerInfoArray'] :
+                # Store primary fire info
+                for p in data['playerInfoArray']:
+                    sessionPlayerSelectionInfo = SessionPlayerSelectionInfo()
+                    sessionPlayerSelectionInfo.sessionKey = str(data['sessionKey'])
+                    sessionPlayerSelectionInfo.playerNumber = int(p['playerNumber'])
+                    sessionPlayerSelectionInfo.hovercraftNumber = int(p['hovercraftNumber'])
+                    sessionPlayerSelectionInfo.put()
+                    
             if data['primaryFireInfoArray'] :
                 # Store primary fire info
                 for p in data['primaryFireInfoArray']:
@@ -74,7 +82,19 @@ class AdminPage( PageController ):
                     secondaryFireData.posY = float(p['y'])
                     secondaryFireData.posZ = float(p['z'])
                     secondaryFireData.put()
-                
+                    
+            if data['playerBoostInfoArray']:
+                # Store player boost info
+                for p in data['playerBoostInfoArray']:
+                    playerBoost = PlayerBoost()
+                    playerBoost.sessionKey = str(data['sessionKey'])
+                    playerBoost.timestamp = str(p['timestamp'])
+                    playerBoost.playerNumber = int(p['playerNumber'])
+                    playerBoost.posX = float(p['x'])
+                    playerBoost.posY = float(p['y'])
+                    playerBoost.posZ = float(p['z'])
+                    playerBoost.put()
+                    
             if data['playerDeathInfoArray']:
                 # Store player death info
                 for p in data['playerDeathInfoArray']:
@@ -98,18 +118,7 @@ class AdminPage( PageController ):
                     playerLocationData.posY = float(p['y'])
                     playerLocationData.posZ = float(p['z'])
                     playerLocationData.put()
-                    
-            if data['playerBoostInfoArray']:
-                # Store player boost info
-                for p in data['playerBoostInfoArray']:
-                    playerBoost = PlayerBoost()
-                    playerBoost.sessionKey = str(data['sessionKey'])
-                    playerBoost.timestamp = str(p['timestamp'])
-                    playerBoost.playerNumber = int(p['playerNumber'])
-                    playerBoost.posX = float(p['x'])
-                    playerBoost.posY = float(p['y'])
-                    playerBoost.posZ = float(p['z'])
-                    playerBoost.put()
+
 
             # try blocks should be limited just to calls that may fail
             sessionDataKey = sessionData.put()

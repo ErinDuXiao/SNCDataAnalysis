@@ -14,7 +14,7 @@ class HeatmapHelper {
     constructor() {
         this.sncHeatmap = h337.create({
           container: document.querySelector('.heatmap-map'),
-          radius: 15,
+          radius: 20,
           opacity: 0.6,
           maxOpacity: 0.9
         });

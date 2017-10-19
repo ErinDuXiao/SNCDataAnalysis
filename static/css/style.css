@@ -23,14 +23,41 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
+
 .heatmap-options {
     text-align: center;
 }
 
-.session-key-row {
-    background-color: #6C7A89;
+.search-condition-bar {
+    margin-bottom: 10px;
 }
-
-.player-data-row {
-    background-color: #2C3E50;
+.search-condition-bar select, .search-condition-bar input {
+    height: 25px;
+}
+.chart-row {
+    height: 300px;
+}
+.line-chart {
+    height: 500px;
+}
+.message {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    border: 1px solid #000;
+    background-color: #000;
+    color: #FFF;
+    font-style: bold;
+    z-index: 99;
+}
+.loading-icon {
+    display: inline-block;
+    width: 15px;
+    height : 15px;
+    background-image: url("../images/loading.gif");
+    background-size: cover;
+}
+.hide {
+    display: none;
 }
