@@ -67,7 +67,7 @@ class App {
 
         data.forEach(
             (e) => {
-                this.heatmap.drawData(e, 4200, -8100, 17);
+                this.heatmap.drawData(e, 6070, -8020, 16.7);
             }
         );
     }

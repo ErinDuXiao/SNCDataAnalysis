@@ -33,7 +33,7 @@ class HeatmapHelper {
         this.points = [];
         this.max = 0;
         let width = 960;
-        let height = 490;
+        let height = 728;
         let val = 1;
 
         this.max = Math.max(this.max, data);

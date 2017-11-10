@@ -24,15 +24,15 @@ class AdminPage( PageController ):
 
     # If it was get request, show the admin page
     def get(self):
-        
+
         tValues = {
             'title': "Admin page",
             'msg': "This is a test page to recieve data"
         }
-        
+
         self.send_html( '../templates/admin.html', tValues )
         return
-      
+
     def do_save_playdata(self, params):
 
         # initialize the result, set the value to indicate an error
@@ -58,43 +58,43 @@ class AdminPage( PageController ):
                     sessionPlayerSelectionInfo.playerNumber = int(p['playerNumber'])
                     sessionPlayerSelectionInfo.hovercraftNumber = int(p['hovercraftNumber'])
                     sessionPlayerSelectionInfo.put()
-                    
-            if data['primaryFireInfoArray'] :
-                # Store primary fire info
-                for p in data['primaryFireInfoArray']:
-                    primaryFireData = PrimaryFire()
-                    primaryFireData.sessionKey = str(data['sessionKey'])
-                    primaryFireData.timestamp = str(p['timestamp'])
-                    primaryFireData.playerNumber = int(p['playerNumber'])
-                    primaryFireData.posX = float(p['x'])
-                    primaryFireData.posY = float(p['y'])
-                    primaryFireData.posZ = float(p['z'])
-                    primaryFireData.put()
-                
-            if data['secondaryFireInfoArray'] :
-                # Store secondary fire info
-                for p in data['secondaryFireInfoArray']:
-                    secondaryFireData = SecondaryFire()
-                    secondaryFireData.sessionKey = str(data['sessionKey'])
-                    secondaryFireData.timestamp = str(p['timestamp'])
-                    secondaryFireData.playerNumber = int(p['playerNumber'])
-                    secondaryFireData.posX = float(p['x'])
-                    secondaryFireData.posY = float(p['y'])
-                    secondaryFireData.posZ = float(p['z'])
-                    secondaryFireData.put()
-                    
-            if data['playerBoostInfoArray']:
-                # Store player boost info
-                for p in data['playerBoostInfoArray']:
-                    playerBoost = PlayerBoost()
-                    playerBoost.sessionKey = str(data['sessionKey'])
-                    playerBoost.timestamp = str(p['timestamp'])
-                    playerBoost.playerNumber = int(p['playerNumber'])
-                    playerBoost.posX = float(p['x'])
-                    playerBoost.posY = float(p['y'])
-                    playerBoost.posZ = float(p['z'])
-                    playerBoost.put()
-                    
+
+            # if data['primaryFireInfoArray'] :
+            #     # Store primary fire info
+            #     for p in data['primaryFireInfoArray']:
+            #         primaryFireData = PrimaryFire()
+            #         primaryFireData.sessionKey = str(data['sessionKey'])
+            #         primaryFireData.timestamp = str(p['timestamp'])
+            #         primaryFireData.playerNumber = int(p['playerNumber'])
+            #         primaryFireData.posX = float(p['x'])
+            #         primaryFireData.posY = float(p['y'])
+            #         primaryFireData.posZ = float(p['z'])
+            #         primaryFireData.put()
+            #
+            # if data['secondaryFireInfoArray'] :
+            #     # Store secondary fire info
+            #     for p in data['secondaryFireInfoArray']:
+            #         secondaryFireData = SecondaryFire()
+            #         secondaryFireData.sessionKey = str(data['sessionKey'])
+            #         secondaryFireData.timestamp = str(p['timestamp'])
+            #         secondaryFireData.playerNumber = int(p['playerNumber'])
+            #         secondaryFireData.posX = float(p['x'])
+            #         secondaryFireData.posY = float(p['y'])
+            #         secondaryFireData.posZ = float(p['z'])
+            #         secondaryFireData.put()
+
+            # if data['playerBoostInfoArray']:
+            #     # Store player boost info
+            #     for p in data['playerBoostInfoArray']:
+            #         playerBoost = PlayerBoost()
+            #         playerBoost.sessionKey = str(data['sessionKey'])
+            #         playerBoost.timestamp = str(p['timestamp'])
+            #         playerBoost.playerNumber = int(p['playerNumber'])
+            #         playerBoost.posX = float(p['x'])
+            #         playerBoost.posY = float(p['y'])
+            #         playerBoost.posZ = float(p['z'])
+            #         playerBoost.put()
+
             if data['playerDeathInfoArray']:
                 # Store player death info
                 for p in data['playerDeathInfoArray']:
@@ -106,7 +106,7 @@ class AdminPage( PageController ):
                     playerDeathData.posY = float(p['y'])
                     playerDeathData.posZ = float(p['z'])
                     playerDeathData.put()
-            
+
             if data['playerPosInfoArray'] :
                 # Store player pos info
                 for p in data['playerPosInfoArray']:
@@ -134,7 +134,7 @@ class AdminPage( PageController ):
         self.send_json( result )
         return
 
-    
+
     def do_save_session(self, params):
 
         # initialize the result, set the value to indicate an error
@@ -174,7 +174,7 @@ class AdminPage( PageController ):
 
         self.send_json( result )
         return
-    
+
     def do_save_player_pos(self, params):
 
         # initialize the result, set the value to indicate an error

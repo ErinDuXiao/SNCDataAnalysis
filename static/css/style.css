@@ -5,18 +5,18 @@
  */
 
 .heatmap-map {
-    height: 490px;
+    height: 728px;
     width: 960px;
 }
 #gamemap-visual-filter {
-    position: absolute;
-    height: 490px;
+    /*position: absolute;
+    height: 728px;
     width: 960px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.0);*/
 }
 #gamemap {
     position: absolute;
-    height: 490px;
+    height: 728px;
     width: 960px;
     background-image: url("../images/map.png");
     background-position: center;

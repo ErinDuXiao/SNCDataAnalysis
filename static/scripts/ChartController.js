@@ -126,11 +126,11 @@ class PlayerSelectionChartController extends PieChartController {
             app.cashedPlayData.playerSelectionInfoArray.forEach((e) => {
                 switch (e.hovercraftNumber) {
                     case 0:
-                      crimzonSparkNum++;
+                      azulonNum++;
                       break;
 
                     case 1:
-                      azulonNum++;
+                      crimzonSparkNum++;
                       break;
 
                     case 3:
@@ -146,7 +146,7 @@ class PlayerSelectionChartController extends PieChartController {
         data.addRows([
             ['Crimzon Spark', crimzonSparkNum],
             ['Azulon', azulonNum],
-            ['HumanOS', humanOSNum],
+            ['Unicorn', humanOSNum],
         ]);
 
         return data;
