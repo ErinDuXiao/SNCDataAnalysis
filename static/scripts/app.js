@@ -67,9 +67,11 @@ class App {
 
         data.forEach(
             (e) => {
-                this.heatmap.drawData(e, 6070, -8020, 16.7);
+                this.heatmap.storeData(e, 6070, -8020, 16.7);
             }
         );
+
+        this.heatmap.drawStoredData();
     }
 
     setupHandler() {
