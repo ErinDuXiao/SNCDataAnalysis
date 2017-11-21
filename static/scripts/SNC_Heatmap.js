@@ -16,10 +16,10 @@ class HeatmapHelper {
         this.maxData = 0;
         this.sncHeatmap = h337.create({
           container: document.querySelector('.heatmap-map'),
-          radius: 20,
-          opacity: 0.6,
-          maxOpacity: 0.7,
-          blur: .75
+          radius: 15,
+          opacity: 0.5,
+          maxOpacity: 0.6,
+          blur: .70
         });
 
       	this.setupHandler();

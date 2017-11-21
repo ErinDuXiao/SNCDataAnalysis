@@ -144,8 +144,8 @@ class PlayerSelectionChartController extends PieChartController {
         };
 
         data.addRows([
-            ['Crimzon Spark', crimzonSparkNum],
             ['Azulon', azulonNum],
+            ['Crimzon Spark', crimzonSparkNum],
             ['Unicorn', humanOSNum],
         ]);
 

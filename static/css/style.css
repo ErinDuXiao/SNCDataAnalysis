@@ -5,7 +5,7 @@
  */
 
 .heatmap-map {
-    height: 728px;
+    height: 649px;
     width: 960px;
 }
 #gamemap-visual-filter {
@@ -16,7 +16,7 @@
 }
 #gamemap {
     position: absolute;
-    height: 728px;
+    height: 649px;
     width: 960px;
     background-image: url("../images/map.png");
     background-position: center;

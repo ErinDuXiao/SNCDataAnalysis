@@ -67,7 +67,7 @@ class App {
 
         data.forEach(
             (e) => {
-                this.heatmap.storeData(e, 6070, -8020, 16.7);
+                this.heatmap.storeData(e, 5880, -8670, 18.0833);
             }
         );
 
