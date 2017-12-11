@@ -1,35 +1,53 @@
 /**
- * Created by dan on 10/13/17.
+ * Heatmap drawing helper
+ *
+ * @copyright: octo-pi. All Rights Reserved.
+ * @author: dan
+ * @version: 1.1.0
+ *
+ * @summary: Framework Singleton Class
+ *
  */
 
-var sncHeatmap = h337.create({
-  container: document.querySelector('.heatmap-map')
-});
+class HeatmapHelper {
 
-//////////////////////
-// Temporary Points...
-var points = [];
-var max = 0;
-var width = 960;
-var height = 600;
-var len = 200;
+    constructor() {
+        this.sncHeatmap = h337.create({
+          container: document.querySelector('.heatmap-map'),
+          radius: 20,
+          opacity: 0.6,
+          maxOpacity: 0.9
+        });
 
-while (len--) {
-  var val = Math.floor(Math.random()*100);
-  max = Math.max(max, val);
-  var point = {
-    x: Math.floor(Math.random()*width),
-    y: Math.floor(Math.random()*height),
-    value: val
-  };
-  points.push(point);
+      	this.setupHandler();
+    }
+
+    setupHandler() {
+    }
+
+    clear() {
+      this.sncHeatmap.setData({data:[]});
+    }
+
+    drawData(data, offsetX, offsetY, scale) {
+        this.points = [];
+        this.max = 0;
+        let width = 960;
+        let height = 490;
+        let val = 1;
+
+        this.max = Math.max(this.max, data);
+        let point = {
+          x: this.convertPosition(data.posY, offsetY, scale),
+          y: this.convertPosition(data.posX, offsetX, scale),
+          value: val
+        };
+        console.log(point);
+        this.sncHeatmap.addData(point);
+    }
+
+    convertPosition(pos, offset, scale) {
+        return Math.floor(Math.abs(pos - offset) / scale);
+    }
+
 }
-// Temporary Points ^
-/////////////////////
-
-var data = {
-  max: max,
-  data: points
-};
-
-sncHeatmap.setData(data);

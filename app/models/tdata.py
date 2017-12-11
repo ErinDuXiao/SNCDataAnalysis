@@ -32,7 +32,7 @@ class PlayerDeath( ndb.Model ):
     posY = ndb.FloatProperty()
     posZ = ndb.FloatProperty()      
             
-class AttackPrimary( ndb.Model ):            
+class PrimaryFire( ndb.Model ):            
     sessionKey = ndb.StringProperty(indexed = True)
     timestamp = ndb.StringProperty()
     playerNumber = ndb.IntegerProperty()        
@@ -40,20 +40,18 @@ class AttackPrimary( ndb.Model ):
     posY = ndb.FloatProperty()
     posZ = ndb.FloatProperty()       
             
-            
-class AttackSecondly( ndb.Model ):            
+class SecondaryFire( ndb.Model ):            
     sessionKey = ndb.StringProperty(indexed = True)        
     timestamp = ndb.StringProperty()        
     playerNumber = ndb.IntegerProperty()        
     posX = ndb.FloatProperty()
     posY = ndb.FloatProperty()
     posZ = ndb.FloatProperty()     
-            
-            
-class AttackMelee( ndb.Model ):            
-    sessionKey = ndb.StringProperty(indexed = True)        
-    timestamp = ndb.StringProperty()
-    playerNumber = ndb.IntegerProperty()
+
+class PlayerBoost( ndb.Model ):            
+    sessionKey = ndb.StringProperty(indexed = True)
+    timestamp = ndb.StringProperty()        
+    playerNumber = ndb.IntegerProperty()        
     posX = ndb.FloatProperty()
     posY = ndb.FloatProperty()
-    posZ = ndb.FloatProperty()
+    posZ = ndb.FloatProperty()  
