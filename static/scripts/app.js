@@ -10,85 +10,99 @@
  */
 'use strict';
 
-class NameSpace {
-    constructor() {
-        this.data = new WeakMap();
-    }
-
-    members( key, value = undefined ) {
-        if (value != undefined) {
-            this.data.set( key, value );
-        }
-        return this.data.get( key );
-    }
-
-    static resultFromData( data ) {
-
-        let result = null;
-        switch (typeof data) {
-            case 'string':
-                result = $.parseJSON( data );
-                break;
-
-            case 'object':
-                result = data;
-                break;
-
-            default:
-                result = null;
-                break;
-        }
-        return result;
-    }
-}
-
+// define namespace
 if (app === undefined) {
     var app = {
-       'private': new NameSpace(),
-       resultFromData: NameSpace.resultFromData
+        charts:{
+            playerSelectionChart: undefined,
+            weaponUsageChart: undefined,
+        },
+        cashedPlayData: {
+            sessionInfoArray: undefined,
+            primaryFireInfoArray: undefined,
+            secondaryFireInfoArray: undefined,
+            deathInfoArray: undefined,
+            boostInfoArray: undefined,
+            playerPosInfoArray: undefined,
+            playerSelectionInfoArray: undefined
+        }
     }
 }
-
 
 class App {
 
     constructor() {
-      this.heatmap = new HeatmapHelper();
+        this.heatmap = new HeatmapHelper();
+        this.getData();
+      	this.setupHandler();
+    }
 
-    	this.setupHandler();
+    update() {
+        this.getData();
+    }
+
+    getData() {
+        this.loadPrimaryFireInfo();
+        this.loadSecondaryInfo();
+        this.loadDeathInfo();
+        this.loadBoostInfo();
+        this.loadPlayerPosition();
+        this.loadPlayerSelection();
+    }
+
+    postGetData() {
+        // check if all data ready
+        if (app.cashedPlayData.primaryFireInfoArray
+          && app.cashedPlayData.secondaryFireInfoArray
+          && app.cashedPlayData.deathInfoArray
+          && app.cashedPlayData.boostInfoArray
+          && app.cashedPlayData.playerPosInfoArray
+          && app.cashedPlayData.playerSelectionInfoArray) {
+              $(".loading-message").hide();
+        }
+    }
+
+    drawHeatMap(data) {
+        if (!data) return;
+
+        data.forEach(
+            (e) => {
+                this.heatmap.storeData(e, 5880, -8670, 18.0833);
+            }
+        );
+
+        this.heatmap.drawStoredData();
     }
 
     setupHandler() {
-        $("#GetSessionInfoButton").on('click',(event) => {
-            this.loadAllSession();
+
+        $("#line-chart-filter").on('click', (event) => {
+            app.charts.playerHeightChart.sessionKey = $("#line-chart-filter option:selected").val();
+            app.charts.playerHeightChart.render();
         });
 
-        $("#sessionKeyComboBox").on('change',(event) => {
-            //
-        });
-
-        $("#eventInfoComboBox").on('change',(event) => {
+        $("#eventSelectButton").on('click',(event) => {
             let selectedVal = $("#eventInfoComboBox option:selected").val();
             this.heatmap.clear();
             switch(selectedVal) {
                 case "primary":
-                    this.loadPrimaryFireInfo();
+                    this.drawHeatMap(app.cashedPlayData.primaryFireInfoArray);
                     break;
 
                 case "secondary":
-                    this.loadSecondaryInfo();
+                    this.drawHeatMap(app.cashedPlayData.secondaryFireInfoArray);
                     break;
 
                 case "death":
-                    this.loadDeathInfo();
+                    this.drawHeatMap(app.cashedPlayData.deathInfoArray);
                     break;
 
                 case "boost":
-                    this.loadBoostInfo();
+                    this.drawHeatMap(app.cashedPlayData.boostInfoArray);
                     break;
 
                 case "pos":
-                    this.loadPlayerPosition();
+                    this.drawHeatMap(app.cashedPlayData.playerPosInfoArray);
                     break;
 
                 default:
@@ -111,18 +125,24 @@ class App {
 
                 result.data.forEach(
                     (e) => {
-                    	$("#sessionKeyComboBox")
-                    	.append(`<option data-levelid="${e.sessionKey}">${e.sessionKey}</option>`);
+                      	$("#sessionKeyComboBox")
+                      	.append(`<option value="${e.sessionKey}">${e.sessionKey}</option>`);
+
+                        $("#line-chart-filter")
+                        .append(`<option value="${e.sessionKey}">${e.sessionKey}</option>`);
                     }
                 );
+                $(".heatmap-options").show();
+                this.postGetData();
+
             });
     }
 
     loadPrimaryFireInfo() {
-
         let request = {
             cmd: 'load_primary_fire_info',
-            sessionKey: $("#sessionKeyComboBox option:selected").val()
+            // sessionKey: $("#sessionKeyComboBox option:selected").val()
+            sessionKey: ""
           };
 
         // post to the server
@@ -131,11 +151,15 @@ class App {
                 if(!result || result.returnCode != 0)
                   return;
 
-                result.data.forEach(
-                    (e) => {
-                      this.heatmap.drawData(e, 4200, -7680, 17);
-                    }
-                );
+                app.cashedPlayData.primaryFireInfoArray = result.data;
+                $("#eventInfoComboBox .primary").show();
+
+                if (app.cashedPlayData.secondaryFireInfoArray) {
+                    app.charts.weaponUsageChart.render();
+                }
+
+                this.postGetData();
+
             });
     }
 
@@ -143,7 +167,8 @@ class App {
 
         let request = {
             cmd: 'load_secondary_fire_info',
-            sessionKey: $("#sessionKeyComboBox option:selected").val()
+            // sessionKey: $("#sessionKeyComboBox option:selected").val()
+            sessionKey: ""
           };
 
         // post to the server
@@ -152,40 +177,26 @@ class App {
                 if(!result || result.returnCode != 0)
                   return;
 
-                result.data.forEach(
-                    (e) => {
-                      this.heatmap.drawData(e, 4200, -7680, 17);
-                    }
-                );
+                app.cashedPlayData.secondaryFireInfoArray = result.data;
+
+                $("#eventInfoComboBox .secondary").show();
+
+                if (app.cashedPlayData.primaryFireInfoArray) {
+                    app.charts.weaponUsageChart.render();
+                }
+
+                this.postGetData();
+
             });
     }
 
-    loadDeathInfo() {
-
-        let request = {
-            cmd: 'load_death_info',
-            sessionKey: $("#sessionKeyComboBox option:selected").val()
-          };
-
-        // post to the server
-        $.post('/', $.param(request))
-            .then ((result) => {
-                if(!result || result.returnCode != 0)
-                  return;
-
-                result.data.forEach(
-                    (e) => {
-                      this.heatmap.drawData(e, 4200, -7680, 17);
-                    }
-                );
-            });
-    }
 
     loadBoostInfo() {
 
         let request = {
             cmd: 'load_boost_info',
-            sessionKey: $("#sessionKeyComboBox option:selected").val()
+            // sessionKey: $("#sessionKeyComboBox option:selected").val()
+            sessionKey: ""
           };
 
         // post to the server
@@ -194,11 +205,34 @@ class App {
                 if(!result || result.returnCode != 0)
                   return;
 
-                result.data.forEach(
-                    (e) => {
-                      this.heatmap.drawData(e, 4200, -7680, 17);
-                    }
-                );
+                app.cashedPlayData.boostInfoArray = result.data;
+
+                $("#eventInfoComboBox .boost").show();
+
+                this.postGetData();
+            });
+    }
+
+
+    loadDeathInfo() {
+
+        let request = {
+            cmd: 'load_death_info',
+            // sessionKey: $("#sessionKeyComboBox option:selected").val()
+            sessionKey: ""
+          };
+
+        // post to the server
+        $.post('/', $.param(request))
+            .then ((result) => {
+                if(!result || result.returnCode != 0)
+                  return;
+
+                app.cashedPlayData.deathInfoArray = result.data;
+
+                $("#eventInfoComboBox .death").show();
+
+                this.postGetData();
             });
     }
 
@@ -206,7 +240,8 @@ class App {
 
         let request = {
         		cmd: 'load_player_pos',
-        		sessionKey: $("#sessionKeyComboBox option:selected").val()
+            // sessionKey: $("#sessionKeyComboBox option:selected").val()
+            sessionKey: ""
           };
 
           // post to the server
@@ -215,16 +250,55 @@ class App {
                   if(!result || result.returnCode != 0)
                     return;
 
-                  result.data.forEach(
-                      (e) => {
-                        this.heatmap.drawData(e, 4200, -7680, 17);
-                      }
-                  );
+                  app.cashedPlayData.playerPosInfoArray = result.data;
+
+                  $("#eventInfoComboBox .pos").show();
+                  app.charts.playerHeightChart.render();
+                  this.postGetData();
+              });
+    }
+
+
+    loadPlayerSelection() {
+
+        let request = {
+        		cmd: 'load_all_player_selection',
+          };
+
+          // post to the server
+          $.post('/', $.param(request))
+              .then ((result) => {
+                  if(!result || result.returnCode != 0)
+                    return;
+
+                  app.cashedPlayData.playerSelectionInfoArray = result.data;
+                  app.charts.playerSelectionChart.render();
+
+                  this.postGetData();
+
               });
     }
 
     run() {
-    	   this.loadAllSession();
+        this.loadAllSession();
+
+        // self = this;
+        // let frame = function( timestamp ) {
+        //
+        //    self.update();
+        //    if (app.charts && app.charts.length) {
+        //
+        //
+        //       app.charts.forEach((e) => {
+        //           e.run()
+        //       });
+        //    }
+        //
+        //    window.requestAnimationFrame( frame );
+        // };
+        //
+        // // This is the simplest game loop possible.
+        // window.requestAnimationFrame( frame );
     }
 
 }

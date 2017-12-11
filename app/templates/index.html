@@ -6,36 +6,43 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <h3>SNC: Heatmaps</h3>
+            <h3>SNC: Data Analysis</h3>
           </div>
         </div>
 
-        <div class="heatmap-options font-heavy">
-          <div class="row">
-            <div class="col-4">
-              <div class="row session-key-row">
+        <div class="row message loading-message">
+            Loading Data...<div class="loading-icon"></div>
+        </div>
+
+        <div class="heatmap-options font-heavy search-condition-bar">
+          <div class="row"  >
+            <!-- <div class="col-4">
                 <select class="col-12" title="Select Session" id="sessionKeyComboBox">
                   <option value="" disabled selected hidden>
                     Choose Session Key...
                   </option>
                 </select>
-              </div>
-            </div>
+            </div> -->
 
-            <div class="col-4">
-              <div class="row session-key-row">
+            <div class="col-3">
                 <select class="col-12" title="Select Event" id="eventInfoComboBox">
                   <option value="" disabled selected hidden>
-                    Choose event...
+                      Choose event...
                   </option>
-                  <option value="primary">Primary Fire</option>
-                  <option value="secondary">Secondary Fire</option>
-                  <option value="boost">Boost</option>
-                  <option value="death">Death</option>
-                  <option value="pos">Player Location</option>
+                  <!-- <option value="primary" class="primary hide">Primary Fire</option>
+                  <option value="secondary" class="secondary hide">Secondary Fire</option>
+                  <option value="boost" class="boost hide">Boost</option> -->
+                  <option value="death" class="death hide">Death</option>
+                  <option value="pos" class="pos hide">Player Location</option>
                 </select>
-              </div>
             </div>
+
+            <div class="col-2">
+              <!-- <div class="row session-key-row"> -->
+                <input type="button" id="eventSelectButton" class="col-10" value="show">
+              <!-- </div> -->
+            </div>
+
           </div>
         </div>
 
@@ -44,6 +51,28 @@
           <div id="gamemap-visual-filter"></div>
         </div>
       </div>
+
+      <div class="row chart-row">
+        <div class="col-6">
+          <div class="chart pie-chart hovercraft-selection"></div>
+        </div>
+        <div class="col-6">
+          <div class="chart bar-chart shooting-weapon-times"></div>
+        </div>
+      </div>
+      <div class="row chart-row">
+        <div class="col-12">
+            <select class="col-2" title="Select Session" id="line-chart-filter">
+              <option value="" disabled selected hidden>
+                Choose Session Key...
+              </option>
+            </select>
+        </div>
+        <div class="col-12">
+          <div class="chart line-chart player-hight"></div>
+        </div>
+      </div>
+
 
       {% include 'partials/footer.html' %}
     </body>
