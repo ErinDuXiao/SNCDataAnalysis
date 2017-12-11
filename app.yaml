@@ -45,28 +45,28 @@ handlers:
       mime_type: text/javascript
       static_dir: static/scripts
 #      upload: static/js/(.*\.js)
-      
+
     - url: /(.*\.html)
       mime_type: text/html
       static_files: static/\1
       upload: static/(.*\.html)
-             
-    - url: .*
-      script: main.app           
 
-           
+    - url: .*
+      script: main.app
+
+
 libraries:
     - name:    webapp2
       version: "2.5.2"  # "2.6" or other actual version here
     - name:    django
       version: "1.5"
     - name:    pycrypto
-      version: latest  # "2.6" or other.      
+      version: latest  # "2.6" or other.
 
 
 builtins:
     - appstats: off   #/_ah/stats/
-    - deferred: on    
+    - deferred: on
     - remote_api: on  #/_ah/remote_api/
     - django_wsgi: on
 
@@ -82,4 +82,3 @@ builtins:
 #
 #  - error_code: timeout
 #    file: app/templates/errors/timeout.html
-     

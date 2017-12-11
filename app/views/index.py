@@ -10,8 +10,12 @@ from app.views.page_controller import PageController
 from app.views.sub import SubPage
 
 from app.models.tdata import Sessions
+from app.models.tdata import SessionPlayerSelectionInfo
 from app.models.tdata import PlayerLocation
-
+from app.models.tdata import PlayerDeath
+from app.models.tdata import PrimaryFire
+from app.models.tdata import SecondaryFire
+from app.models.tdata import PlayerBoost
 """
 Home Page handler
 
@@ -68,6 +72,146 @@ class IndexPage( PageController ):
         result['returnCode'] = 0
 
         self.send_json( result )
+        return
+    
+    def do_load_primary_fire_info(self, params):
+
+        # initialize the result, set the value to indicate an error
+        result = { 'returnCode': -1 }
+
+        # read sessionKey
+        primaryFire = PrimaryFire()
+        primaryFire.sessionKey = str(params['sessionKey'])
+
+        try:
+            primaryFireDataResultList = primaryFire.query()
+            
+        except ValueError:
+            logging.error( 'Attempt to do load all session failed' )
+            self.send_json( result )
+
+        dataArray = []
+        for resultData in primaryFireDataResultList:
+            record = {}
+            record['sessionKey'] = resultData.sessionKey
+            record['timestamp'] = resultData.timestamp
+            record['playerNumber'] = resultData.playerNumber
+            record['posX'] = resultData.posX
+            record['posY'] = resultData.posY
+            record['posZ'] = resultData.posZ
+            dataArray.append(record)
+            
+        result['data'] = dataArray
+
+        result['returnCode'] = 0
+
+        self.send_json( result )
+        
+        return
+    
+    def do_load_secondary_fire_info(self, params):
+
+        # initialize the result, set the value to indicate an error
+        result = { 'returnCode': -1 }
+
+        # read sessionKey
+        eventInfo = SecondaryFire()
+        eventInfo.sessionKey = str(params['sessionKey'])
+
+        try:
+            resultList = eventInfo.query()
+            
+        except ValueError:
+            logging.error( 'Attempt to do load all session failed' )
+            self.send_json( result )
+
+        dataArray = []
+        for resultData in resultList:
+            record = {}
+            record['sessionKey'] = resultData.sessionKey
+            record['timestamp'] = resultData.timestamp
+            record['playerNumber'] = resultData.playerNumber
+            record['posX'] = resultData.posX
+            record['posY'] = resultData.posY
+            record['posZ'] = resultData.posZ
+            dataArray.append(record)
+            
+        result['data'] = dataArray
+
+        result['returnCode'] = 0
+
+        self.send_json( result )
+        
+        return
+    
+    def do_load_death_info(self, params):
+
+        # initialize the result, set the value to indicate an error
+        result = { 'returnCode': -1 }
+
+        # read sessionKey
+        eventInfo = PlayerDeath()
+        eventInfo.sessionKey = str(params['sessionKey'])
+
+        try:
+            resultList = eventInfo.query()
+            
+        except ValueError:
+            logging.error( 'Attempt to do load all session failed' )
+            self.send_json( result )
+
+        dataArray = []
+        for resultData in resultList:
+            record = {}
+            record['sessionKey'] = resultData.sessionKey
+            record['timestamp'] = resultData.timestamp
+            record['playerNumber'] = resultData.playerNumber
+            record['posX'] = resultData.posX
+            record['posY'] = resultData.posY
+            record['posZ'] = resultData.posZ
+            dataArray.append(record)
+            
+        result['data'] = dataArray
+
+        result['returnCode'] = 0
+
+        self.send_json( result )
+        
+        return
+    
+    def do_load_boost_info(self, params):
+
+        # initialize the result, set the value to indicate an error
+        result = { 'returnCode': -1 }
+
+        # read sessionKey
+        eventInfo = PlayerBoost()
+        eventInfo.sessionKey = str(params['sessionKey'])
+
+        try:
+            resultList = eventInfo.query()
+            
+        except ValueError:
+            logging.error( 'Attempt to do load all session failed' )
+            self.send_json( result )
+
+        dataArray = []
+        for resultData in resultList:
+            record = {}
+            record['sessionKey'] = resultData.sessionKey
+            record['timestamp'] = resultData.timestamp
+            record['playerNumber'] = resultData.playerNumber
+            record['posX'] = resultData.posX
+            record['posY'] = resultData.posY
+            record['posZ'] = resultData.posZ
+            dataArray.append(record)
+            
+        result['data'] = dataArray
+
+        result['returnCode'] = 0
+
+        self.send_json( result )
+        
         return
     
     def do_load_player_pos(self, params):

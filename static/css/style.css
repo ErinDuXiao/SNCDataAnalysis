@@ -5,11 +5,24 @@
  */
 
 .heatmap-map {
-    background-color: #333447;
-    min-height: 600px;
-    min-width: 960px;
+    height: 490px;
+    width: 960px;
 }
-
+#gamemap-visual-filter {
+    position: absolute;
+    height: 490px;
+    width: 960px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+#gamemap {
+    position: absolute;
+    height: 490px;
+    width: 960px;
+    background-image: url("../images/map.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 .heatmap-options {
     text-align: center;
 }
